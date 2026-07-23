@@ -2,7 +2,7 @@
 
 ## Why I built this
 
-I was applying to 15+ working student and internship roles across Hamburg-area
+I was applying to 40+ working student and internship roles in German
 companies at the same time, and rewriting my CV by hand for every job description
 was slowing me down and introducing copy-paste mistakes. I wanted one YAML file as
 the single source of truth, a CI pipeline that renders it into a clean ATS-friendly
