@@ -1,13 +1,13 @@
- ai-resume
+# ai-resume-generator
 
 > An open-source resume pipeline: a single YAML source of truth → an ATS-friendly PDF,
 > rendered automatically by GitHub Actions (RenderCV + LaTeX), with an **optional AI step**
 > that tailors your bullets to a target job description.
 
-![Build](https://github.com/Luciifer-byte/ai-resume/actions/workflows/render-cv.yml/badge.svg)
-![License](https://img.shields.io/github/license/Luciifer-byte/ai-resume)
+![Build](https://github.com/Luciifer-byte/ai-resume-generator/actions/workflows/render-cv.yml/badge.svg)
+![License](https://img.shields.io/github/license/Luciifer-byte/ai-resume-generator)
 
-![CV preview](https://raw.githubusercontent.com/Luciifer-byte/ai-resume/main/rendercv_output/preview.png)
+![CV preview](https://raw.githubusercontent.com/Luciifer-byte/ai-resume-generator/main/rendercv_output/preview.png)
 
 ## How it works
 
