@@ -1,0 +1,4 @@
+rendercv_output/** linguist-generated=true
+*.typ linguist-generated=true
+*.pdf -diff -text
+*.png -diff -text
