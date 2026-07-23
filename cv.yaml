@@ -1,11 +1,11 @@
 cv:
   name: Joe Carter
   location: San Francisco, California, USA
-  email: alex.carter@example.com
+  email: joe.carter@example.com
   phone: "+1 (415) 555-0189"
   social_networks:
     - network: LinkedIn
-      username: alex-carter-marketing
+      username: joe-carter-marketing
     - network: GitHub
       username: alexcarterdev
   sections:
