@@ -12,10 +12,14 @@ cv:
     summary:
       - >
         Marketing professional with 7+ years of experience in growth marketing,
-        brand strategy, digital campaigns, and analytics. Experienced in
-        leading cross-functional initiatives, optimizing customer acquisition,
-        and using AI-assisted workflows to improve marketing efficiency.
+        brand strategy, digital campaigns, and analytics, with a strong focus on
+        AI-powered marketing technologies, digital asset management, and
+        cross-functional stakeholder collaboration. Experienced in leading
+        internal communication initiatives, driving AI adoption, and using
+        AI-assisted workflows to improve marketing efficiency and data quality.
     skills:
+      - label: Marketing Technology
+        details: PIM & DAM Platforms, AI-Powered Marketing Tools, Marketing Automation, Data Quality Management
       - label: Marketing
         details: Brand Strategy, Growth Marketing, Product Marketing, Campaign Management
       - label: Analytics
@@ -23,7 +27,7 @@ cv:
       - label: Digital
         details: Google Ads, Meta Ads, LinkedIn Ads, SEO, Email Marketing
       - label: Tools
-        details: HubSpot, Salesforce, Canva, Figma, Notion, Microsoft 365
+        details: HubSpot, Salesforce, Canva, Figma, Notion, Microsoft 365, SharePoint
       - label: Languages
         details: English (Native), Spanish (Professional)
     Professional Experience:
@@ -33,25 +37,25 @@ cv:
         end_date: present
         location: Los Angeles, California
         highlights:
-          - Led integrated marketing campaigns reaching 50M+ users.
-          - Increased customer acquisition by 28% through data-driven optimization.
-          - Managed $5M annual digital advertising budget.
+          - Led integrated marketing campaigns reaching 50M+ users, coordinating with cross-functional business, IT and external partners.
+          - Increased customer acquisition by 28% through data-driven optimization and continuous evaluation of marketing technology.
+          - Managed $5M annual digital advertising budget, ensuring data quality and consistency across platforms.
       - company: HubSpot
         position: Digital Marketing Specialist
         start_date: 2019-06
         end_date: 2021-12
         location: Boston, Massachusetts
         highlights:
-          - Increased organic traffic by 70% through SEO initiatives.
-          - Built automated email campaigns improving lead conversion by 40%.
+          - Increased organic traffic by 70% through SEO initiatives and digital asset creation and publication.
+          - Built automated email campaigns and internal communication updates, improving lead conversion by 40%.
       - company: Adobe
         position: Marketing Coordinator
         start_date: 2017-07
         end_date: 2019-05
         location: San Jose, California
         highlights:
-          - Supported product launch campaigns across North America.
-          - Coordinated influencer and social media marketing initiatives.
+          - Supported international digital marketing product launch campaigns across North America, from asset creation to publication.
+          - Coordinated influencer, social media, and knowledge-sharing initiatives with internal and external stakeholders.
     education:
       - institution: University of Southern California
         area: Marketing
