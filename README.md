@@ -4,7 +4,7 @@
 > rendered automatically by GitHub Actions (RenderCV + LaTeX). CV content is tailored to a
 > job description with any LLM using a reusable prompt (see `SKILL.md`).
  
-Built while applying to 15+ working student and internship roles at once — see
+Built while applying to 40+ working student and internship roles at once — see
 [CONTRIBUTING.md](CONTRIBUTING.md#why-i-built-this) for the full story, and
 [EXAMPLE.md](EXAMPLE.md) for a before/after of the AI tailoring in action.
  
