@@ -15,9 +15,9 @@
 flowchart LR
   A[Edit cv.yaml] --> B[git push]
   B --> C{GitHub Actions}
-  C --> D[RenderCV -> PDF + PNG]
+  C --> D[RenderCV renders PDF + PNG]
   D --> E[Commit to rendercv_output/]
-  F[Any LLM + SKILL.md + JD] -. tailors cv.yaml .-> A
+  F[Any LLM + SKILL.md + JD] -->|tailors cv.yaml| A
 ```
 
 ## Features
