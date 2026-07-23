@@ -7,7 +7,9 @@ Reads cv.yaml + a target job description, asks an LLM to rewrite the
 and writes cv.tailored.yaml for human review.
 
 Supports OpenAI, Anthropic (Claude), Google Gemini, and any OpenAI-compatible
-endpoint (Ollama, Groq, Together, DeepSeek, ...). Choose with AI_PROVIDER.
+endpoint (Ollama, Groq, Together, DeepSeek, ...). The provider is auto-detected
+from whichever API key is set (OPENAI_API_KEY / ANTHROPIC_API_KEY / GEMINI_API_KEY),
+or forced with the AI_PROVIDER env var / --provider flag.
 
 OPTIONAL + LOCAL. Nothing leaves your machine unless you provide an API key.
 Review the output before using it anywhere.
@@ -19,7 +21,6 @@ import argparse
 import os
 import sys
 
-# Prefer ruamel.yaml (ships with RenderCV); fall back to PyYAML if unavailable.
 try:
     from ruamel.yaml import YAML
     _ryaml = YAML()
@@ -37,6 +38,20 @@ SYSTEM_PROMPT = (
     "Keep the candidate's real numbers and scope. Output ONLY a YAML list of "
     "strings, one per highlight, preserving order. Be concise."
 )
+
+# provider -> (env var holding the key, default model)
+PROVIDERS = {
+    "openai": ("OPENAI_API_KEY", "gpt-4o-mini"),
+    "anthropic": ("ANTHROPIC_API_KEY", "claude-3-5-sonnet-latest"),
+    "gemini": ("GEMINI_API_KEY", "gemini-1.5-flash"),
+}
+
+
+def detect_provider():
+    for name, (key_var, _) in PROVIDERS.items():
+        if os.environ.get(key_var):
+            return name
+    return None
 
 
 def load_cv(path):
@@ -111,27 +126,30 @@ def main():
     ap.add_argument("--cv", default="cv.yaml")
     ap.add_argument("--jd", required=True, help="Job description .txt/.md")
     ap.add_argument("--out", default="cv.tailored.yaml")
-    ap.add_argument("--provider", default=os.environ.get("AI_PROVIDER", "openai") or "openai")
+    ap.add_argument("--provider", default=os.environ.get("AI_PROVIDER") or None,
+                    help="openai | anthropic | gemini (auto-detected if omitted)")
     args = ap.parse_args()
 
-    defaults = {
-        "openai": ("OPENAI_API_KEY", "gpt-4o-mini"),
-        "anthropic": ("ANTHROPIC_API_KEY", "claude-3-5-sonnet-latest"),
-        "gemini": ("GEMINI_API_KEY", "gemini-1.5-flash"),
-    }
-    if args.provider not in defaults:
-        sys.exit(f"AI_PROVIDER must be one of: {', '.join(defaults)}")
-    key_var, default_model = defaults[args.provider]
-    if not os.environ.get(key_var):
-        sys.exit(f"Set the {key_var} environment variable first.")
+    # Use the requested provider only if its key is present; else auto-detect.
+    requested = args.provider
+    provider = None
+    if requested and requested in PROVIDERS and os.environ.get(PROVIDERS[requested][0]):
+        provider = requested
+    else:
+        provider = detect_provider()
 
-    model = os.environ.get(f"{args.provider.upper()}_MODEL", default_model)
+    if provider is None:
+        sys.exit("No LLM API key found. Set one of: OPENAI_API_KEY, ANTHROPIC_API_KEY, "
+                 "GEMINI_API_KEY (optionally also set AI_PROVIDER to force a choice).")
+
+    key_var, default_model = PROVIDERS[provider]
+    model = os.environ.get(f"{provider.upper()}_MODEL", default_model)
 
     cv = load_cv(args.cv)
     jd = open(args.jd, encoding="utf-8").read()
     for section, name, entry in collect(cv):
-        print(f"Tailoring: {name} ({section}) [{args.provider}/{model}]")
-        entry["highlights"] = tailor(entry["highlights"], jd, args.provider, model)
+        print(f"Tailoring: {name} ({section}) [{provider}/{model}]")
+        entry["highlights"] = tailor(entry["highlights"], jd, provider, model)
     save_cv(cv, args.out)
     print(f"Wrote {args.out} — review it, then: rendercv render {args.out}")
 
