@@ -1,9 +1,9 @@
 # Joe Carter's CV
 
 - Phone: +1 415 555 0189
-- Email: [alex.carter@example.com](mailto:alex.carter@example.com)
+- Email: [joe.carter@example.com](mailto:joe.carter@example.com)
 - Location: San Francisco, California, USA
-- LinkedIn: [alex-carter-marketing](https://linkedin.com/in/alex-carter-marketing)
+- LinkedIn: [joe-carter-marketing](https://linkedin.com/in/joe-carter-marketing)
 - GitHub: [alexcarterdev](https://github.com/alexcarterdev)
 
 

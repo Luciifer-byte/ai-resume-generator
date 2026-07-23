@@ -90,9 +90,9 @@
 
 #connections(
   [San Francisco, California, USA],
-  [#link("mailto:alex.carter@example.com", icon: false, if-underline: false, if-color: false)[alex.carter\@example.com]],
+  [#link("mailto:joe.carter@example.com", icon: false, if-underline: false, if-color: false)[joe.carter\@example.com]],
   [#link("tel:+1-415-555-0189", icon: false, if-underline: false, if-color: false)[(415) 555-0189]],
-  [#link("https://linkedin.com/in/alex-carter-marketing", icon: false, if-underline: false, if-color: false)[linkedin.com\/in\/alex-carter-marketing]],
+  [#link("https://linkedin.com/in/joe-carter-marketing", icon: false, if-underline: false, if-color: false)[linkedin.com\/in\/joe-carter-marketing]],
   [#link("https://github.com/alexcarterdev", icon: false, if-underline: false, if-color: false)[github.com\/alexcarterdev]],
 )
 
