@@ -8,17 +8,19 @@
 
 
 # Summary
-Marketing professional with 7+ years of experience in growth marketing, brand strategy, digital campaigns, and analytics. Experienced in leading cross-functional initiatives, optimizing customer acquisition, and using AI-assisted workflows to improve marketing efficiency.
+Marketing professional with 7+ years of experience in growth marketing, brand strategy, digital campaigns, and analytics, with a strong focus on AI-powered marketing technologies, digital asset management, and cross-functional stakeholder collaboration. Experienced in leading internal communication initiatives, driving AI adoption, and using AI-assisted workflows to improve marketing efficiency and data quality.
 
 
 # Skills
+**Marketing Technology:** PIM & DAM Platforms, AI-Powered Marketing Tools, Marketing Automation, Data Quality Management
+
 **Marketing:** Brand Strategy, Growth Marketing, Product Marketing, Campaign Management
 
 **Analytics:** Google Analytics 4, Tableau, Power BI, Looker Studio
 
 **Digital:** Google Ads, Meta Ads, LinkedIn Ads, SEO, Email Marketing
 
-**Tools:** HubSpot, Salesforce, Canva, Figma, Notion, Microsoft 365
+**Tools:** HubSpot, Salesforce, Canva, Figma, Notion, Microsoft 365, SharePoint
 
 **Languages:** English (Native), Spanish (Professional)
 
@@ -31,11 +33,11 @@ Marketing professional with 7+ years of experience in growth marketing, brand st
 
 *Netflix*
 
-- Led integrated marketing campaigns reaching 50M+ users.
+- Led integrated marketing campaigns reaching 50M+ users, coordinating with cross-functional business, IT and external partners.
 
-- Increased customer acquisition by 28% through data-driven optimization.
+- Increased customer acquisition by 28% through data-driven optimization and continuous evaluation of marketing technology.
 
-- Managed $5M annual digital advertising budget.
+- Managed $5M annual digital advertising budget, ensuring data quality and consistency across platforms.
 
 
 
@@ -47,9 +49,9 @@ Marketing professional with 7+ years of experience in growth marketing, brand st
 
 *HubSpot*
 
-- Increased organic traffic by 70% through SEO initiatives.
+- Increased organic traffic by 70% through SEO initiatives and digital asset creation and publication.
 
-- Built automated email campaigns improving lead conversion by 40%.
+- Built automated email campaigns and internal communication updates, improving lead conversion by 40%.
 
 
 
@@ -61,9 +63,9 @@ Marketing professional with 7+ years of experience in growth marketing, brand st
 
 *Adobe*
 
-- Supported product launch campaigns across North America.
+- Supported international digital marketing product launch campaigns across North America, from asset creation to publication.
 
-- Coordinated influencer and social media marketing initiatives.
+- Coordinated influencer, social media, and knowledge-sharing initiatives with internal and external stakeholders.
 
 
 
