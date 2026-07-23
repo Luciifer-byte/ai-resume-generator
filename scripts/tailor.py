@@ -11,10 +11,25 @@ endpoint (Ollama, Groq, Together, DeepSeek, ...). Choose with AI_PROVIDER.
 
 OPTIONAL + LOCAL. Nothing leaves your machine unless you provide an API key.
 Review the output before using it anywhere.
+
+Note: YAML I/O uses ruamel.yaml, which RenderCV installs automatically, so no
+separate PyYAML install is required.
 """
 import argparse
 import os
-import yaml
+import sys
+
+# Prefer ruamel.yaml (ships with RenderCV); fall back to PyYAML if unavailable.
+try:
+    from ruamel.yaml import YAML
+    _ryaml = YAML()
+    _ryaml.preserve_quotes = True
+    _ryaml.indent(mapping=2, sequence=4, offset=2)
+    _HAS_RUAMEL = True
+except ImportError:
+    import yaml as _pyyaml
+    _HAS_RUAMEL = False
+
 
 SYSTEM_PROMPT = (
     "You are an expert resume editor. Rewrite bullet-point achievements so they "
@@ -26,7 +41,17 @@ SYSTEM_PROMPT = (
 
 def load_cv(path):
     with open(path, encoding="utf-8") as f:
-        return yaml.safe_load(f)
+        if _HAS_RUAMEL:
+            return _ryaml.load(f)
+        return _pyyaml.safe_load(f)
+
+
+def save_cv(data, path):
+    with open(path, "w", encoding="utf-8") as f:
+        if _HAS_RUAMEL:
+            _ryaml.dump(data, f)
+        else:
+            _pyyaml.safe_dump(data, f, sort_keys=False, allow_unicode=True)
 
 
 def collect(cv):
@@ -51,7 +76,7 @@ def tailor(highlights, jd, provider, model):
     if provider == "openai":
         from openai import OpenAI
         client = OpenAI(api_key=os.environ["OPENAI_API_KEY"],
-                        base_url=os.environ.get("OPENAI_BASE_URL"))  # None -> OpenAI default
+                        base_url=os.environ.get("OPENAI_BASE_URL"))
         resp = client.chat.completions.create(
             model=model,
             messages=[{"role": "system", "content": SYSTEM_PROMPT},
@@ -86,7 +111,7 @@ def main():
     ap.add_argument("--cv", default="cv.yaml")
     ap.add_argument("--jd", required=True, help="Job description .txt/.md")
     ap.add_argument("--out", default="cv.tailored.yaml")
-    ap.add_argument("--provider", default=os.environ.get("AI_PROVIDER", "openai"))
+    ap.add_argument("--provider", default=os.environ.get("AI_PROVIDER", "openai") or "openai")
     args = ap.parse_args()
 
     defaults = {
@@ -107,8 +132,7 @@ def main():
     for section, name, entry in collect(cv):
         print(f"Tailoring: {name} ({section}) [{args.provider}/{model}]")
         entry["highlights"] = tailor(entry["highlights"], jd, args.provider, model)
-    with open(args.out, "w", encoding="utf-8") as f:
-        yaml.safe_dump(cv, f, sort_keys=False, allow_unicode=True)
+    save_cv(cv, args.out)
     print(f"Wrote {args.out} — review it, then: rendercv render {args.out}")
 
 
