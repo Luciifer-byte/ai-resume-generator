@@ -34,12 +34,12 @@ jobs:
           python-version: '3.12'
 
       - name: Install RenderCV + preview deps
-        run: pip install "rendercv[full]==2.8" pymupdf
+        run: pip install "rendercv[full]==2.8" pymupdf PyYAML
 
       - name: Optional AI tailoring
         if: ${{ env.OPENAI_API_KEY != '' || env.ANTHROPIC_API_KEY != '' || env.GEMINI_API_KEY != '' }}
         run: |
-          pip install openai anthropic google-generativeai
+          pip install openai anthropic google-generativeai PyYAML
           if [ -n "$JOB_DESCRIPTION" ]; then echo "$JOB_DESCRIPTION" > /tmp/jd.txt; JD=/tmp/jd.txt; else JD=job_description.example.txt; fi
           python scripts/tailor.py --cv cv.yaml --jd "$JD" --out cv.tailored.yaml
 
