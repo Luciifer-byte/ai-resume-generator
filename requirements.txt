@@ -1,3 +1,6 @@
-openai>=1.0
 PyYAML>=6.0
 pymupdf>=1.23
+# Install the SDK for the provider you use:
+openai>=1.0                  # OpenAI, or any OpenAI-compatible API (Ollama, Groq, Together, DeepSeek, ...)
+anthropic>=0.40              # Anthropic Claude
+google-generativeai>=0.5     # Google Gemini
