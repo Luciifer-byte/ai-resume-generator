@@ -34,7 +34,7 @@ jobs:
           python-version: '3.12'
 
       - name: Install RenderCV + preview deps
-        run: pip install "rendercv[full]==2.8" pymupdf PyYAML
+        run: pip install "rendercv[full]==2.8" pymupdf
 
       - name: Optional AI tailoring
         if: ${{ env.OPENAI_API_KEY != '' || env.ANTHROPIC_API_KEY != '' || env.GEMINI_API_KEY != '' }}
@@ -48,21 +48,26 @@ jobs:
         run: |
           if [ -f cv.tailored.yaml ]; then echo "file=cv.tailored.yaml" >> "$GITHUB_OUTPUT"; else echo "file=cv.yaml" >> "$GITHUB_OUTPUT"; fi
 
+      - name: Clear stale PDFs
+        run: rm -f rendercv_output/*.pdf
+
       - name: Render CV
         run: rendercv render ${{ steps.src.outputs.file }}
 
       - name: Generate PNG preview
         run: |
           python - <<'PY'
-          import fitz, glob
-          pdf = sorted(glob.glob("rendercv_output/*.pdf"))[0]
+          import fitz, glob, os
+          pdf = max(glob.glob("rendercv_output/*.pdf"), key=os.path.getmtime)
           fitz.open(pdf)[0].get_pixmap(dpi=110).save("rendercv_output/preview.png")
+          print("Preview generated from:", pdf)
           PY
 
-      - name: Commit PDF + preview
+      - name: Commit PDF + preview + tailored YAML
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add rendercv_output/*.pdf rendercv_output/preview.png -f
+          git add -A rendercv_output/
+          if [ -f cv.tailored.yaml ]; then git add cv.tailored.yaml; fi
           git diff --staged --quiet || git commit -m "Auto-render CV PDF [skip ci]"
           git push
