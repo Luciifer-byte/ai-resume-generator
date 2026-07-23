@@ -7,23 +7,14 @@ on:
   push:
     paths:
       - 'cv.yaml'
-      - 'cv.tailored.yaml'
-      - 'scripts/**'
-      - 'job_description.example.txt'
       - '.github/workflows/render-cv.yml'
   workflow_dispatch:
 
 jobs:
   render:
     runs-on: ubuntu-latest
-    env:
-      AI_PROVIDER: ${{ secrets.AI_PROVIDER }}
-      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-      JOB_DESCRIPTION: ${{ secrets.JOB_DESCRIPTION }}
     steps:
-      - name: Checkout (full history)
+      - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
@@ -36,23 +27,11 @@ jobs:
       - name: Install RenderCV + preview deps
         run: pip install "rendercv[full]==2.8" pymupdf
 
-      - name: Optional AI tailoring
-        if: ${{ env.OPENAI_API_KEY != '' || env.ANTHROPIC_API_KEY != '' || env.GEMINI_API_KEY != '' }}
-        run: |
-          pip install google-generativeai
-          if [ -n "$JOB_DESCRIPTION" ]; then echo "$JOB_DESCRIPTION" > /tmp/jd.txt; JD=/tmp/jd.txt; else JD=job_description.example.txt; fi
-          python scripts/tailor.py --cv cv.yaml --jd "$JD" --out cv.tailored.yaml
-
-      - name: Pick CV source
-        id: src
-        run: |
-          if [ -f cv.tailored.yaml ]; then echo "file=cv.tailored.yaml" >> "$GITHUB_OUTPUT"; else echo "file=cv.yaml" >> "$GITHUB_OUTPUT"; fi
-
       - name: Clear stale PDFs
         run: rm -f rendercv_output/*.pdf
 
       - name: Render CV
-        run: rendercv render ${{ steps.src.outputs.file }}
+        run: rendercv render cv.yaml
 
       - name: Generate PNG preview
         run: |
@@ -60,14 +39,12 @@ jobs:
           import fitz, glob, os
           pdf = max(glob.glob("rendercv_output/*.pdf"), key=os.path.getmtime)
           fitz.open(pdf)[0].get_pixmap(dpi=110).save("rendercv_output/preview.png")
-          print("Preview generated from:", pdf)
           PY
 
-      - name: Commit PDF + preview + tailored YAML
+      - name: Commit PDF + preview
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add -A rendercv_output/
-          if [ -f cv.tailored.yaml ]; then git add cv.tailored.yaml; fi
           git diff --staged --quiet || git commit -m "Auto-render CV PDF [skip ci]"
           git push
